@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Correios.Services;
 using Xamarin.Forms;
 
@@ -17,12 +13,12 @@ namespace Correios
 
         void Handle_Clicked(object sender, System.EventArgs e)
         {
-
+            //animation
             btnSearch.Opacity = 0.25;
             btnSearch.IsEnabled = false;
 
-            var zipCode = ZipCodeEntry.Text.Trim()
-                                      .Replace("-",string.Empty);
+
+            var zipCode = ZipCodeEntry.Text.Replace("-",string.Empty).Trim();
 
             if(string.IsNullOrEmpty(zipCode))
             {
@@ -31,17 +27,17 @@ namespace Correios
             }
 
             var address = ViaCepService.GetAddress(zipCode);
-            var sb = FormatarRetorno(address);
+            var sb = FormatAddress(address);
 
             AddressLabel.Text = sb.ToString();
 
-
+            //animation
             btnSearch.Opacity = 1;
             btnSearch.IsEnabled = true;
         
         }
 
-        private static StringBuilder FormatarRetorno(Models.Address address)
+        private static StringBuilder FormatAddress(Models.Address address)
         {
             var sb = new StringBuilder();
 
